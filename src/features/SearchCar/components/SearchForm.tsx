@@ -1,10 +1,22 @@
 import Input from "@/components/Input"
-import { useState } from "react"
+import {
+  useState,
+  type Dispatch,
+  type SetStateAction,
+  type SubmitEvent,
+} from "react"
 
-function SearchForm() {
+function SearchForm({
+  updateQueryFn,
+}: {
+  updateQueryFn: Dispatch<SetStateAction<string>>
+}) {
   const [value, setValue] = useState("")
 
-  function handleSubmit() {}
+  function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
+    e.preventDefault()
+    updateQueryFn(value)
+  }
 
   return (
     <form onSubmit={handleSubmit}>

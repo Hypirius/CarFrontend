@@ -5,6 +5,7 @@ function useSearchCar(query: string) {
   return useQuery({
     queryKey: ["Cars"],
     queryFn: () => getSearchData(query),
+    enabled: query ? true : false,
   })
 }
 
