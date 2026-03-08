@@ -1,14 +1,18 @@
-import { useState, type ChangeEvent } from "react"
+import { type SetStateAction, type Dispatch, type ChangeEvent } from "react"
 
-export default function Input({ id }: { id?: string }) {
-  const [value, setValue] = useState("")
+type InputProps = {
+  updateStateFn: Dispatch<SetStateAction<string>>
+  value: string
+  id?: string
+}
 
-  function handleInput(e: ChangeEvent<HTMLInputElement>) {
-    setValue(e.target.value)
+export default function Input({ updateStateFn, value, id }: InputProps) {
+  function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
+    updateStateFn(e.target.value)
   }
   return (
     <input
-      onChange={handleInput}
+      onChange={handleOnChange}
       type="text"
       required
       value={value}
