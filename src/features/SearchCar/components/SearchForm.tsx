@@ -20,7 +20,7 @@ function SearchForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="search-input">Search Car: </label>
+      <label htmlFor="search-input">Search Brand: </label>
       <Input id="search-input" value={value} updateStateFn={setValue} />
       <button type="submit">Enter query</button>
     </form>

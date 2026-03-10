@@ -1,3 +1,4 @@
+import Filters from "./features/Filters"
 import SearchCar from "./features/SearchCar"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
@@ -9,6 +10,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <SearchCar />
       </QueryClientProvider>
+      <Filters />
     </div>
   )
 }

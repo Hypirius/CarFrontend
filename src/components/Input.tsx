@@ -3,27 +3,42 @@ import {
   type Dispatch,
   type ChangeEvent,
   type HTMLInputTypeAttribute,
+  type InputHTMLAttributes,
 } from "react"
 
-type InputProps = {
-  updateStateFn: Dispatch<SetStateAction<string>>
-  value: string
-  id?: string
-  type?: HTMLInputTypeAttribute
-}
+type InputProps<T extends string | number> =
+  InputHTMLAttributes<HTMLInputElement> & {
+    updateStateFn: Dispatch<SetStateAction<T>>
+    value: T
+    id?: string
+    type?: HTMLInputTypeAttribute
+  }
 
-export default function Input({ updateStateFn, value, id, type }: InputProps) {
+function Input<T extends string | number>({
+  updateStateFn,
+  value,
+  id,
+  type = "text",
+  ...props
+}: InputProps<T>) {
   function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
-    updateStateFn(e.target.value)
+    let changeValue: string | number = e.target.value
+    if (typeof value === "number") {
+      changeValue = Number(changeValue)
+    }
+    updateStateFn(changeValue as T)
   }
 
   return (
     <input
       onChange={handleOnChange}
-      type={type ? type : "text"}
+      type={type}
       required
       value={value}
+      {...props}
       id={id ? id : ""}
     />
   )
 }
+
+export default Input
